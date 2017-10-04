@@ -10,7 +10,16 @@ class App extends Component {
     super(props);
     this.state = {
       income: null,
-      budgetItems: [],
+      budgetItems: [
+        {
+          title: "Transport",
+          amount: 5000
+        },
+        {
+          title: "Food",
+          amount: 15000
+        }
+      ],
       incomeFormVisible: true,
       item: ''
 
@@ -34,18 +43,18 @@ class App extends Component {
     });
   }
 
-    render() {
-      const budgetItems = this.state.budgetItems;
-      const income = this.state.income
-      const props = {budgetItems, income, addBudgetItem: this.addBudgetItem, handleChange: this.handleChange}
-      return (
-        <div>
-          <IncomeForm income={this.state.income} changeIncome={this.changeIncome} />
-          <BudgetView {...props} />
-        </div>
+  render() {
+    const budgetItems = this.state.budgetItems;
+    const income = this.state.income
+    const props = { budgetItems, income, addBudgetItem: this.addBudgetItem, handleChange: this.handleChange }
+    return (
+      <div>
+        <IncomeForm income={this.state.income} changeIncome={this.changeIncome} />
+        <BudgetView {...props} />
+      </div>
 
-      );
-    };
+    );
   };
+};
 
-  export default App;
+export default App;

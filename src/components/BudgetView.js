@@ -2,46 +2,37 @@ import React from 'react';
 
 import BudgetItemForm from './BudgetItemForm';
 
-const BudgetView = (props) => {
-  console.log('props', props)
-
-
-  const budgetItems = props.budgetItems.map((items) => {
-    return {
-      items
-    }
-  })
-
-  // const budgetItem = (
-  //   {props.budgetItems.map(item => (
-  //     <tr>
-  //       <td></td>
-  //       <td></td>
-  //     </tr>
-
-  //   ))}
-
-  //)
-  return (
-    <div>
-      <table>
+const BudgetView = (props) => (
+  <div>
+    <table>
+      <tbody>
         <tr>
           <td>Amount</td>
           <td>{props.income}</td>
         </tr>
-      </table>
+      </tbody>
 
-      <table>
+    </table>
+
+    <table>
+      <tbody>
         <tr>
           <td>Budget Item</td>
           <td>Amount</td>
         </tr>
-      </table>
+        {props.budgetItems.map((budgetItem, index) => (
+          <tr key={index}>
+            <td>{budgetItem.title}</td>
+            <td>{budgetItem.amount}</td>
+          </tr>
+        ))}
+      </tbody>
 
-      <BudgetItemForm />
-    </div>
-  );
-};
+    </table>
+
+    <BudgetItemForm />
+  </div>
+);
 
 BudgetView.propTypes = {
 
