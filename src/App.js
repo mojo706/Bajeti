@@ -9,27 +9,27 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      income: null,
+      income: 0,
       budgetItems: [
         {
           title: "Transport",
           amount: 5000
-        },
-        {
-          title: "Food",
-          amount: 15000
         }
       ],
       incomeFormVisible: true,
-      item: ''
-
     };
   }
   changeIncome = (newIncome) => {
     this.setState({ income: newIncome });
   };
 
-  addBudgetItem = (prevState) => {
+  // addBudgetItem = (prevState) => {
+  //   this.setState({
+  //     budgetItems: prevState.budgetItems.concat(prevState.item)
+  //   });
+  // };
+
+  addBudgetItem = (prevState, item) => {
     this.setState({
       budgetItems: prevState.budgetItems.concat(prevState.item)
     });
