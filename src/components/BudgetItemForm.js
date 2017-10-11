@@ -5,40 +5,37 @@ class BudgetItemForm extends Component {
   titleInput;
   amountInput;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      item:
-      {
-
-        title: '',
-        amount: 0
-      }
-    };
-
-  };
-
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.addBudgetItems(this.state.item)
+    let item = {
+      title: this.titleInput.value,
+      amount: this.amountInput.value
+    };
+    if((this.titleInput.value || this.amountInput.value)) {
+      this.props.addBudgetItem(item)
+      this.titleInput.value = '';
+      this.amountInput.value = null;
+    }
+    
   };
 
   render() {
     return (
-      <form action="" >
+      <form action="" onSubmit={this.handleSubmit}>
         <h4>Enter a Budget Item</h4>
         <input
           type="text"
           name="title"
           ref={(input) => { this.titleInput = input }}
           placeholder="Enter Budget item"
+          required
         />
         <input
           type="number"
           name="amount"
           ref={(input) => { this.amountInput = input }}
           placeholder="Enter Budget amount"
-
+          required
         />
         <button >Save Item</button>
       </form>

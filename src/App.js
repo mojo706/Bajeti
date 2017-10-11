@@ -29,9 +29,9 @@ class App extends Component {
   //   });
   // };
 
-  addBudgetItem = (prevState, item) => {
+  addBudgetItem = (item) => {
     this.setState({
-      budgetItems: prevState.budgetItems.concat(prevState.item)
+      budgetItems: [...this.state.budgetItems, item]
     });
   };
 

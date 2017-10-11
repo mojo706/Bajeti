@@ -31,7 +31,7 @@ const BudgetView = (props) => {
 
       </table>
 
-      <BudgetItemForm {...props} />
+      <BudgetItemForm addBudgetItem={props.addBudgetItem}/>
     </div>
   )
 };
