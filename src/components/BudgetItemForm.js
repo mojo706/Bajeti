@@ -28,6 +28,7 @@ class BudgetItemForm extends Component {
           name="title"
           ref={(input) => { this.titleInput = input }}
           placeholder="Enter Budget item"
+          value = {this.props.itemToEdit.title}
           required
         />
         <input
@@ -35,6 +36,7 @@ class BudgetItemForm extends Component {
           name="amount"
           ref={(input) => { this.amountInput = input }}
           placeholder="Enter Budget amount"
+         value = {this.props.itemToEdit.amount}
           required
         />
         <button >Save Item</button>

@@ -3,6 +3,7 @@ import React from 'react';
 import BudgetItemForm from './BudgetItemForm';
 
 const BudgetView = (props) => {
+  console.log("Props:", props)
   return (
     <div>
       <table>
@@ -25,13 +26,17 @@ const BudgetView = (props) => {
             <tr key={index}>
               <td>{budgetItem.title}</td>
               <td>{budgetItem.amount}</td>
+               <td><button type="" onClick={(event) => {
+                props.editBudgetItem(index)
+              }}>Edit</button></td>
+              <td><button type="" onClick={() => {
+                props.deleteBudgetItem(index)
+              }}>Delete</button></td>
             </tr>
           ))}
         </tbody>
 
       </table>
-
-      <BudgetItemForm addBudgetItem={props.addBudgetItem}/>
     </div>
   )
 };
