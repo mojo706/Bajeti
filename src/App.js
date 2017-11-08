@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import IncomeForm from './components/IncomeForm';
 import BudgetView from './components/BudgetView';
@@ -10,7 +10,7 @@ class App extends Component {
     super(props);
     this.state = {
       income: 0,
-      itemToEdit: {},
+      currentItem: {},
       budgetItems: [
         {
           title: "Transport",
@@ -21,8 +21,9 @@ class App extends Component {
       currentBudgetItemIndex: null
     };
   }
+
   changeIncome = (newIncome) => {
-    this.setState({ income: newIncome });
+    this.setState({income: newIncome});
   };
 
   addBudgetItem = (item) => {
@@ -34,59 +35,58 @@ class App extends Component {
   };
 
   deleteBudgetItem = (index) => {
-    const budgetItems = [...this.state.budgetItems];
-    budgetItems.splice(index, 1);
-    this.setState({
-      budgetItems: budgetItems
-    });
+    this.setState(prevState => ({
+      budgetItems: prevState.budgetItems.filter((item, currentIndex) => currentIndex !== index)
+    }));
   };
 
-  setCurrentBudgetItemIndex = (index) => {
-    console.log('index', this.state.currentBudgetItemIndex);
-    this.setState({currentBudgetItemIndex:index});
-    
-  }
-  
   editBudgetItem = (index) => {
-    const itemToEdit = this.state.budgetItems[index];
-    // const prevBudgetItems = [...this.state.budgetItems];
-    console.log('item to edit', itemToEdit)
+    const currentItem = this.state.budgetItems[index];
     this.setState({
-      itemToEdit: itemToEdit
-    })
-    // prevBudgetItems[index] = updatedItem;
-    // this.setState({
-    //   budgetItems: prevBudgetItems
-    // });
+      currentItem: currentItem,
+      currentBudgetItemIndex: index
+    });
   };
 
-  handleChange = (event) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  }
+  updateBudgetItem = (currentItem) => {
+    // takes currentBudgetItemIndex
+    // inserts the updated currentBudgetItem into that index
+    const currentBudgetItemIndex = this.state.currentBudgetItemIndex;
+    this.setState(prevState => ({
+      budgetItems: [...prevState.budgetItems.slice(0, currentBudgetItemIndex), currentItem, ...prevState.budgetItems.slice(currentBudgetItemIndex + 1)],
+      currentItem: {
+        title: '',
+        amount: ''
+      },
+      currentBudgetItemIndex: null
+    }));
+  };
 
-  saveItems = (event) => {
-    event.preventDefault()
-    console.log(this.state);
-  }
   render() {
     const budgetItems = this.state.budgetItems;
-    const income = this.state.income
-    const itemToEdit = this.state.itemToEdit;
+    const income = this.state.income;
+    const currentItem = this.state.currentItem;
 
-    const props = { budgetItems, income, addBudgetItem: this.addBudgetItem, handleChange: this.handleChange, saveItems: this.saveItems, deleteBudgetItem: this.deleteBudgetItem, editBudgetItem: this.editBudgetItem, itemToEdit, setCurrentBudgetItemIndex: this.setCurrentBudgetItemIndex}
+    const props = {
+      budgetItems,
+      income,
+      addBudgetItem: this.addBudgetItem,
+      saveItems: this.saveItems,
+      deleteBudgetItem: this.deleteBudgetItem,
+      editBudgetItem: this.editBudgetItem,
+      currentItem,
+      setCurrentBudgetItemIndex: this.setCurrentBudgetItemIndex
+    };
     return (
       <div>
-        <IncomeForm income={this.state.income} changeIncome={this.changeIncome} />
+        <IncomeForm income={this.state.income} changeIncome={this.changeIncome}/>
         <BudgetView {...props} />
-        <BudgetItemForm addBudgetItem={this.addBudgetItem} itemToEdit={this.state.itemToEdit} />
+        <BudgetItemForm handleSubmit={this.state.currentBudgetItemIndex !== null ? this.updateBudgetItem : this.addBudgetItem}
+                        currentItem={this.state.currentItem}/>
       </div>
 
     );
   };
-};
+}
 
 export default App;

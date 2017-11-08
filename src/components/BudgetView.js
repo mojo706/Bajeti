@@ -1,9 +1,6 @@
 import React from 'react';
 
-import BudgetItemForm from './BudgetItemForm';
-
 const BudgetView = (props) => {
-  console.log("Props:", props)
   return (
     <div>
       <table>
@@ -26,7 +23,7 @@ const BudgetView = (props) => {
             <tr key={index}>
               <td>{budgetItem.title}</td>
               <td>{budgetItem.amount}</td>
-               <td><button type="" onClick={(event) => {
+               <td><button onClick={(event) => {
                 props.editBudgetItem(index)
               }}>Edit</button></td>
               <td><button type="" onClick={() => {
@@ -38,12 +35,8 @@ const BudgetView = (props) => {
 
       </table>
     </div>
-  )
+  );
 };
-
-BudgetView.propTypes = {
-
-}
 
 export default BudgetView;
 

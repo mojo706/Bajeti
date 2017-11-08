@@ -5,23 +5,6 @@ class IncomeForm extends React.Component {
 
   textInput = null;
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     income: null
-
-  //   };
-  // };
-
-  // handleChange = (event) => {
-  //   event.preventDefault();
-  //   const value = event.target.value;
-  //   this.setState({
-  //     income: value
-  //   });
-
-  // };
-
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.changeIncome(this.textInput.value);
@@ -50,6 +33,6 @@ class IncomeForm extends React.Component {
 IncomeForm.propTypes = {
   income: PropTypes.number.isRequired,
   changeIncome: PropTypes.func.isRequired
-}
+};
 
 export default IncomeForm;
